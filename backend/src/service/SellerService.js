@@ -2,7 +2,7 @@ const Seller = require("../model/Seller");
 const jwtProvider = require("../util/jwtProvider");
 const Address = require("../model/Address");
 
-class SellerService {
+class sellerService {
   async createSeller(sellerData) {
     const existingSeller = await Seller.findOne({ email: sellerData.email });
     if (existingSeller) {
@@ -73,4 +73,4 @@ class SellerService {
   }
 }
 
-module.exports = new SellerService();
+module.exports = new sellerService();
