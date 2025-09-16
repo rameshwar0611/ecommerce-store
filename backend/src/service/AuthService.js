@@ -1,7 +1,7 @@
 const Seller = require("../model/Seller");
 const VerificationCode = require("../model/VerificationCode");
 const generateOTP = require("../util/generateOtp");
-const sendVerificaationEmail = require("../util/sendEmail");
+const sendVerificationEmail = require("../util/sendEmail");
 
 class AuthService {
   async sendLoginOTP(email) {
@@ -25,6 +25,6 @@ class AuthService {
     // send email to user
     const subject = "ecommerce-store: Your Login/Signup OTP";
     const body = `Your OTP is ${otp}. Please enter it to complete your login process.`;
-    await sendVerificaationEmail(email, subject, body);
+    await sendVerificationEmail(email, subject, body);
   }
 }
