@@ -2,13 +2,15 @@ const Seller = require("../model/Seller");
 const VerificationCode = require("../model/VerificationCode");
 const generateOTP = require("../util/generateOtp");
 const sendVerificationEmail = require("../util/sendEmail");
+const SellerService = require("./SellerService");
 
 class AuthService {
   async sendLoginOTP(email) {
     const SIGNIN_PREFIX = "signin_";
 
-    if (email.startswith(SIGNIN_PREFIX)) {
-      const seller = await Seller.findOne({ email });
+    if (email.startsWith(SIGNIN_PREFIX)) {
+      email = email.substring(SIGNIN_PREFIX.length);
+      const seller = await SellerService.getSellerByEmail(email);
       if (!seller) {
         throw new Error("User not found");
       }
@@ -19,7 +21,7 @@ class AuthService {
       await VerificationCode.deleteOne({ email });
     }
     const otp = generateOTP();
-    const verificationCode = new VerificationCode(otp, email);
+    const verificationCode = new VerificationCode({ otp, email });
     await verificationCode.save();
 
     // send email to user

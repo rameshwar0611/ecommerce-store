@@ -4,19 +4,23 @@ async function sendVerificationEmail(to, subject, body) {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "your_email",
-      password: "your_password",
+      user: "crowntelevision97@gmail.com",
+      pass: "qdfmlsfrspztiwcp",
     },
   });
 
   const mailOptions = {
-    from: "your_email",
+    from: "crowntelevision97@gmail.com",
     to,
     subject,
     html: body,
   };
 
-  await transporter.sendMail(mailOptions);
+  try {
+    await transporter.sendMail(mailOptions);
+  } catch (error) {
+    console.error("Error sending email:", error);
+  }
 }
 
 module.exports = sendVerificationEmail;

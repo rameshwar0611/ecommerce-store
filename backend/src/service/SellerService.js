@@ -32,11 +32,11 @@ class sellerService {
   }
 
   async getSellerByEmail(email) {
-    const seller = await Seller.findOne({ email });
+    console.log("email: ", email);
+    const seller = await Seller.find({ email });
     if (!seller) {
       throw new Error("Seller not found");
     }
-    console.log(seller);
     return seller;
   }
 

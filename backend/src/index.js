@@ -12,9 +12,11 @@ app.use(bodyParser.json());
 
 const sellerRoutes = require("./routers/SellerRoutes.js");
 const AdminRoutes = require("./routers/AdminRoutes.js");
+const authRoutes = require("./routers/AuthRoutes.js");
 
 app.use("/sellers", sellerRoutes);
 app.use("/admin", AdminRoutes);
+app.use("/auth", authRoutes);
 
 const PORT = 5000;
 
