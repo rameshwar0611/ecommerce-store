@@ -29,7 +29,7 @@ class SellerController {
     }
   }
 
-  async gerAllSeller(req, res) {
+  async getAllSellers(req, res) {
     try {
       const status = req.query.status;
       const sellers = await sellerService.getAllSellers(status);

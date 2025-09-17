@@ -28,3 +28,5 @@ class AuthService {
     await sendVerificationEmail(email, subject, body);
   }
 }
+
+module.exports = new AuthService();

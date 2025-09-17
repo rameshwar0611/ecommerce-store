@@ -13,10 +13,10 @@ class sellerService {
     savedAddress = await Address.create(sellerData.pickupAddress);
 
     const newSeller = new Seller({
-      sellerName: sellerData.name,
+      sellerName: sellerData.sellerName,
       email: sellerData.email,
       password: sellerData.password,
-      pickupAddress: sellerData.savedAddress._id,
+      pickupAddress: savedAddress._id,
       GSTIN: sellerData.GSTIN,
       mobile: sellerData.mobile,
       bankDetails: sellerData.bankDetails,
