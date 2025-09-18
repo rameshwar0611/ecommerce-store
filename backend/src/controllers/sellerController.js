@@ -8,6 +8,9 @@ class SellerController {
 
   async getSellerProfile(req, res) {
     try {
+      const profile = await req.seller;
+      console.log("profile: ", profile);
+
       const jwt = req.headers.authorization.split(" ")[1];
       const seller = await sellerService.getSellerProfile(jwt);
       res.status(200).json(seller);
@@ -43,13 +46,13 @@ class SellerController {
 
   async updateSeller(req, res) {
     try {
-      const existingSeller = await req.seller; // we need fetch seller from req for this we need to create middleware where we will verify jwt token and acc to this jwt token we fetch the seller then we will send that seller to req
+      const existingSeller = await req.seller;
       const updatedSeller = await sellerService.updateSeller(
         existingSeller,
         req.body
       );
       res.status(200).json(updatedSeller);
-    } catch {
+    } catch (error) {
       res
         .status(error instanceof Error ? 404 : 500)
         .json({ message: error.message });
