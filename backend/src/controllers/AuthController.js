@@ -17,13 +17,13 @@ class AuthController {
   async createUser(req, res) {
     try {
       const jwt = await AuthService.createUser(req.body);
-      const res = {
+      const authRes = {
         jwt,
         message: "User registered successfully",
         role: UserRoles.CUSTOMER,
       };
 
-      res.status(200).json(res);
+      res.status(200).json(authRes);
     } catch (error) {
       res
         .status(error instanceof Error ? 404 : 500)
@@ -33,8 +33,8 @@ class AuthController {
 
   async signin(req, res) {
     try {
-      const res = await AuthService.signin(req.body);
-      res.status(200).json(res);
+      const authRes = await AuthService.signin(req.body);
+      res.status(200).json(authRes);
     } catch (error) {
       res
         .status(error instanceof Error ? 404 : 500)
