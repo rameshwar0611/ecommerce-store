@@ -7,6 +7,7 @@ const jwtProvider = require("../util/jwtProvider");
 const sendVerificationEmail = require("../util/sendEmail");
 const SellerService = require("./SellerService");
 const bcrypt = require("bcrypt");
+const UserService = require("./UserService");
 
 class AuthService {
   async sendLoginOTP(email) {
@@ -14,8 +15,9 @@ class AuthService {
 
     if (email.startsWith(SIGNIN_PREFIX)) {
       email = email.substring(SIGNIN_PREFIX.length);
-      const seller = await SellerService.getSellerByEmail(email);
-      if (!seller) {
+      const seller = await Seller.findOne({ email });
+      const user = await User.findOne({ email });
+      if (!seller && !user) {
         throw new Error("User not found");
       }
     }
@@ -35,16 +37,20 @@ class AuthService {
   }
 
   async createUser(req) {
-    const { email, fullName } = req;
+    const { email, fullName, otp } = req;
 
     let user = await User.findOne({ email });
     if (user) {
       throw new Error("User already exists with email");
     }
+
+    const verificationCode = await VerificationCode.findOne({ email });
+    if (!verificationCode || verificationCode.otp !== otp) {
+      throw new Error("Invalid Otp...");
+    }
     user = new User({
       email,
       fullName,
-      password: bcrypt.hash(12345678, 10),
     });
     await user.save();
 
