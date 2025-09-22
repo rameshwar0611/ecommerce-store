@@ -14,11 +14,15 @@ const sellerRoutes = require("./routers/SellerRoutes.js");
 const AdminRoutes = require("./routers/AdminRoutes.js");
 const authRoutes = require("./routers/AuthRoutes.js");
 const userRoutes = require("./routers/UserRoutes.js");
+const productRoutes = require("./routers/ProductRoutes.js");
+const sellerProductRoutes = require("./routers/SellerProductRoutes.js");
 
 app.use("/sellers", sellerRoutes);
 app.use("/admin", AdminRoutes);
 app.use("/auth", authRoutes);
 app.use("/api/users", userRoutes);
+app.use("/products", productRoutes);
+app.use("/api/sellers/products", sellerProductRoutes);
 
 const PORT = 5000;
 
